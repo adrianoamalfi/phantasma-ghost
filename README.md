@@ -86,7 +86,7 @@ Write the exposure line in the feature image's **caption** (for example `35mm ·
 
 ## Demo content
 
-`demo/` holds a complete demo site (36 photographs in 6 series, a Journal, pages) and a seeder that loads it into any Ghost site: see [demo/README.md](demo/README.md). `npm run screenshots` regenerates the documentation images; the static demo (`npm run demo:static`) is built by the Pages workflow and is never committed, because it contains the photographs.
+`demo/` holds two complete demo sites ("Mara Voss": 36 photographs in 6 series, a Journal, pages; and "Adriano Amalfi": urban photography with a masonry feed and a portrait hero) and a seeder that loads either into any Ghost site: see [demo/README.md](demo/README.md). `npm run screenshots` regenerates the documentation images; the static demo (`npm run demo:static`) is built by the Pages workflow and is never committed, because it contains the photographs.
 
 ## Development
 

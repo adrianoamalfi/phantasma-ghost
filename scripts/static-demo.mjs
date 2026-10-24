@@ -4,18 +4,15 @@
    (Ghost's Portal and search scripts, the members forms stay inert).
 
    Usage:
-     GHOST_URL=http://localhost:2368 node scripts/static-demo.mjs [--out docs/demo] [--public /phantasma-ghost/demo] [--images copy|commons]
+     GHOST_URL=http://localhost:2368 node scripts/static-demo.mjs [--out docs/demo] [--public /phantasma-ghost/demo]
 
    docs/demo is not committed: the Pages workflow builds it (see .github/workflows/pages.yml). */
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
-import { readFileSync } from 'node:fs';
 import { dirname, join, posix } from 'node:path';
-import { PHOTOS, EXTRA } from '../demo/photos.mjs';
 
 const args = Object.fromEntries(
     process.argv.slice(2).reduce((a, v, i, all) => (v.startsWith('--') ? a.concat([[v.slice(2), all[i + 1]]]) : a), []),
 );
-const IMAGES = args.images || 'copy'; // copy: save the photographs next to the pages; commons: load them from Wikimedia Commons
 const SRC = (process.env.GHOST_URL || 'http://localhost:2368').replace(/\/$/, '');
 const OUT = args.out || 'docs/demo';
 const PUBLIC = (args.public || '/phantasma-ghost/demo').replace(/\/$/, '');
@@ -23,33 +20,6 @@ const SKIP_PAGES = /^\/(ghost|rss|sitemap|members|webmentions|robots|favicon|aut
 const MAX_PAGE = 2; // feed pagination beyond this adds nothing to a demo
 
 const origin = new URL(SRC).origin;
-
-// The demo photographs are not copied into the repository: the static pages load them from Wikimedia Commons, which
-// serves thumbnails at standard widths and is where they come from (credits are in every caption).
-const SOURCES = JSON.parse(readFileSync(new URL('../demo/sources.json', import.meta.url), 'utf8'));
-const keyBySlug = Object.fromEntries([
-    ...PHOTOS.map((p) => [p.slug, p.key]),
-    ['d1', EXTRA.avatar],
-    ['d2', EXTRA.about],
-]);
-const WIDTHS = [330, 500, 960, 1280, 1920]; // the standard thumbnail widths Wikimedia serves
-const unmapped = new Set();
-function commonsUrl(path) {
-    const m = path.match(
-        /^\/content\/images\/(?:size\/w(\d+)\/)?(?:format\/\w+\/)?\d{4}\/\d{2}\/(.+?)(?:-\d+)?\.(?:jpe?g|png|webp)$/,
-    );
-    const key = m && keyBySlug[m[2]];
-    if (!key) {
-        unmapped.add(path);
-        return null;
-    }
-    const want = Number(m[1]) || 1920;
-    const width = WIDTHS.find((w) => w >= want) || 1920;
-    return SOURCES[key].thumb
-        .replace('thumb.wikimedia.org', 'upload.wikimedia.org')
-        .split('?')[0]
-        .replace(/\/\d+px-/, `/${width}px-`);
-}
 const toPublic = (u) => `${PUBLIC}${u.startsWith('/') ? u : `/${u}`}`;
 const seen = new Set();
 const pages = [];
@@ -65,14 +35,10 @@ function local(u, base) {
 }
 
 function rewrite(text) {
-    text = text
-        .replace(
-            /(<script type="application\/ld\+json">)([\s\S]*?)(<\/script>)/g,
-            (m, a, b, c) => a + b.replace(/\\\//g, '/') + c,
-        )
-        .replace(/(?:https?:\/\/localhost:\d+)?(\/content\/images\/[^\s"')<]+?\.(?:jpe?g|png|webp))/g, (m, p) =>
-            IMAGES === 'commons' ? commonsUrl(p) || m : m,
-        );
+    text = text.replace(
+        /(<script type="application\/ld\+json">)([\s\S]*?)(<\/script>)/g,
+        (m, a, b, c) => a + b.replace(/\\\//g, '/') + c,
+    );
     // root-relative attribute values (before the origin is replaced, so nothing is prefixed twice)
     let out = text.replace(
         /\b(href|src|action|poster|data-src)="\/(?!\/)([^"]*)"/g,
@@ -153,7 +119,7 @@ while (queue.length) {
         const p = u.pathname;
         const ext = posix.extname(p);
         if (ext && ext !== '.html') {
-            if (IMAGES === 'copy' || !p.startsWith('/content/images/')) assets.add(p + u.search);
+            assets.add(p + u.search);
         } else if (!SKIP_PAGES.test(p) && !/\/page\/(\d+)\//.test(p)) {
             queue.push(p.endsWith('/') ? p : `${p}/`);
         } else {
@@ -195,5 +161,4 @@ while (pending.length) {
     }
 }
 writeFileSync(join(OUT, '.nojekyll'), '');
-if (unmapped.size) console.warn('images not mapped to Commons:', [...unmapped].slice(0, 5));
 console.log(`${done.size} assets, ${(bytes / 1048576).toFixed(1)} MB → ${OUT} (public path ${PUBLIC}/)`);

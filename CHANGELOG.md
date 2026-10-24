@@ -4,6 +4,9 @@ All notable changes to this project are documented here. The format follows [Kee
 
 ## [Unreleased]
 
+### Added
+- A second demo site, "Adriano Amalfi" (urban photography): top header, personal hero with a portrait, masonry feed and a yellow accent, built next to the first at `/demo-street/`. The seeder now takes `--demo mara|street` and resets unnamed theme settings to their defaults between demos.
+
 ## [0.1.0] - 2026-10-24
 
 ### Added
