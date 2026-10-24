@@ -30,7 +30,7 @@ jobs:
             -e database__connection__filename=/var/lib/ghost/content/data/ghost.db \
             -v "$PWD":/var/lib/ghost/content/themes/phantasma:ro \
             ghost:6
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         with:
           path: demo/.cache
           key: demo-photos-${{ hashFiles('demo/sources.json') }}
