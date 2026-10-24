@@ -44,12 +44,12 @@
     "eslint": "^10.7.0",
     "globals": "^17.7.0",
     "gscan": "^6.6.1",
-    "handlebars": "^4.7.9",
+    "handlebars": "^4.7.10",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.1",
     "prettier": "^3.8.1",
-    "puppeteer-core": "^24.0.0",
+    "puppeteer-core": "^25.16.0",
     "vitest": "^4.1.12"
   },
   "config": {
@@ -146,7 +146,7 @@
       },
       "social_custom_url": {
         "type": "text",
-        "description": "Full URL of one extra profile (Medium, Telegram, Scholar…). Shown with a globe icon."
+        "description": "Full URL of one extra profile (Medium, Telegram, Scholar\u2026). Shown with a globe icon."
       },
       "cta_headline": {
         "type": "text",
@@ -209,5 +209,8 @@
     "type": "git",
     "url": "git+https://github.com/adrianoamalfi/phantasma-ghost.git"
   },
-  "bugs": "https://github.com/adrianoamalfi/phantasma-ghost/issues"
+  "bugs": "https://github.com/adrianoamalfi/phantasma-ghost/issues",
+  "overrides": {
+    "handlebars": "$handlebars"
+  }
 }
