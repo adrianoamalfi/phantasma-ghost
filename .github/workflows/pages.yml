@@ -33,6 +33,11 @@ jobs:
       - run: npm ci
       - run: npm run build
 
+      - name: Package the theme
+        run: |
+          node scripts/package-theme.mjs
+          mkdir -p "$RUNNER_TEMP/theme/phantasma"
+          unzip -q dist/phantasma.zip -d "$RUNNER_TEMP/theme/phantasma"
       - name: Start Ghost with the theme
         id: ghost
         continue-on-error: true
@@ -41,7 +46,7 @@ jobs:
             -e NODE_ENV=development -e url=http://localhost:2368 \
             -e database__client=sqlite3 \
             -e database__connection__filename=/var/lib/ghost/content/data/ghost.db \
-            -v "$PWD":/var/lib/ghost/content/themes/phantasma:ro \
+            -v "$RUNNER_TEMP/theme/phantasma":/var/lib/ghost/content/themes/phantasma \
             ghost:6
       - uses: actions/cache@v4
         with:
