@@ -1,0 +1,69 @@
+name: Pages
+
+# Publishes the documentation (docs/) and a static, browsable copy of the demo site (docs/demo/). The demo is built here
+# from a real Ghost running the theme with the demo content, so the photographs never live in the repository.
+# Needs Settings → Pages → Source: GitHub Actions. If the demo cannot be built, the documentation is still published.
+on:
+  push:
+    branches: [main]
+    paths: ["docs/**", "demo/**", "assets/**", "partials/**", "*.hbs", "scripts/static-demo.mjs", ".github/workflows/pages.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+      - name: Start Ghost with the theme
+        id: ghost
+        continue-on-error: true
+        run: |
+          docker run -d --name ghost -p 2368:2368 \
+            -e NODE_ENV=development -e url=http://localhost:2368 \
+            -e database__client=sqlite3 \
+            -e database__connection__filename=/var/lib/ghost/content/data/ghost.db \
+            -v "$PWD":/var/lib/ghost/content/themes/phantasma:ro \
+            ghost:6
+      - uses: actions/cache@v4
+        with:
+          path: demo/.cache
+          key: demo-photos-${{ hashFiles('demo/sources.json') }}
+      - name: Create the demo site and its static copy
+        id: demo
+        if: steps.ghost.outcome == 'success'
+        continue-on-error: true
+        run: |
+          node demo/bootstrap.mjs
+          node scripts/static-demo.mjs --out docs/demo --public "/${GITHUB_REPOSITORY#*/}/demo"
+        env:
+          GHOST_URL: http://localhost:2368
+      - name: Say what happened to the demo
+        if: always()
+        run: |
+          if [ -f docs/demo/index.html ]; then echo "Static demo built."; else echo "::warning::The static demo was not built; publishing the documentation only."; docker logs ghost > ghost.log 2>&1 || true; fi
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+      - id: deployment
+        uses: actions/deploy-pages@v4

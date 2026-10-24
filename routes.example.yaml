@@ -1,0 +1,17 @@
+# Optional: keep the Journal out of the photograph feed. Upload in Ghost Admin → Settings → Labs → Routes.
+# Posts tagged "journal" live under /journal/; everything else stays at the root and in the home feed.
+routes:
+
+collections:
+    /journal/:
+        permalink: /journal/{slug}/
+        filter: tag:journal
+        template: index
+    /:
+        permalink: /{slug}/
+        filter: tag:-journal
+        template: index
+
+taxonomies:
+    tag: /tag/{slug}/
+    author: /author/{slug}/

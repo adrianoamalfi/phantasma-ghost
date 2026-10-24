@@ -1,0 +1,213 @@
+{
+  "name": "phantasma",
+  "description": "A Ghost theme for photographers: a light table and a contact sheet. Fixed left rail, justified rows, numbered frames, series, single-photo pages and a lightbox.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "name": "Adriano Amalfi",
+    "email": "adrianoamalfi@gmail.com",
+    "url": "https://adrianoamalfi.com"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build:css": "postcss assets/css/screen.css assets/css/post.css --dir assets/built",
+    "build:js": "esbuild assets/js/main.js assets/js/post.js --bundle --minify --target=es2020 --outdir=assets/built",
+    "build": "npm run build:css && npm run build:js",
+    "dev:css": "postcss assets/css/screen.css assets/css/post.css --dir assets/built --watch",
+    "dev:js": "esbuild assets/js/main.js assets/js/post.js --bundle --sourcemap --target=es2020 --outdir=assets/built --watch",
+    "dev": "concurrently -n css,js \"npm:dev:css\" \"npm:dev:js\"",
+    "test": "gscan .",
+    "check:i18n": "node scripts/check-i18n.mjs",
+    "check": "npm run build && npm test && npm run check:i18n && npm run check:a11y && npm run test:unit && npm run lint && npm run format:check",
+    "zip": "npm run check && node scripts/package-theme.mjs",
+    "starter:sync": "node \"${STARTER:-../ghost-theme-starter}/bin/sync.mjs\" .",
+    "check:a11y": "node scripts/check-a11y.mjs",
+    "test:unit": "vitest run",
+    "smoke": "node scripts/smoke-routes.mjs",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "docs": "node scripts/docs-settings.mjs",
+    "screenshots": "node scripts/screenshots.mjs",
+    "check:rendered": "node scripts/check-rendered.mjs",
+    "demo:seed": "node demo/seed.mjs",
+    "demo:static": "node scripts/static-demo.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "axe-core": "^4.10.0",
+    "concurrently": "^9.2.5",
+    "cssnano": "^7.0.6",
+    "esbuild": "^0.28.2",
+    "eslint": "^10.7.0",
+    "globals": "^17.7.0",
+    "gscan": "^6.6.1",
+    "handlebars": "^4.7.9",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "postcss-import": "^16.1.1",
+    "prettier": "^3.8.1",
+    "puppeteer-core": "^24.0.0",
+    "vitest": "^4.1.12"
+  },
+  "config": {
+    "posts_per_page": 12,
+    "card_assets": true,
+    "image_sizes": {
+      "xxs": {
+        "width": 30
+      },
+      "s": {
+        "width": 320
+      },
+      "m": {
+        "width": 640
+      },
+      "l": {
+        "width": 1024
+      },
+      "xl": {
+        "width": 1920
+      }
+    },
+    "custom": {
+      "show_related_posts": {
+        "type": "boolean",
+        "default": true,
+        "description": "Show related posts after the article."
+      },
+      "header_style": {
+        "type": "select",
+        "options": [
+          "Inline",
+          "Stacked",
+          "Centered",
+          "Sidebar"
+        ],
+        "default": "Sidebar",
+        "description": "Inline, Stacked (brand above menu), Centered (menu | brand | actions) or Sidebar (fixed left rail)"
+      },
+      "post_hero_style": {
+        "type": "select",
+        "options": [
+          "Poster",
+          "Editorial",
+          "Split",
+          "Cover",
+          "Slideshow",
+          "Personal"
+        ],
+        "default": "Slideshow",
+        "group": "homepage",
+        "description": "Hero: Poster, Editorial, Split, Cover or Slideshow (featured photos), Personal (the author)"
+      },
+      "personal_hero_headline": {
+        "type": "text",
+        "default": "",
+        "group": "homepage",
+        "description": "Personal hero: headline (defaults to the site title)"
+      },
+      "personal_hero_text": {
+        "type": "text",
+        "default": "",
+        "group": "homepage",
+        "description": "Personal hero: short line under the headline (defaults to the site description)"
+      },
+      "personal_hero_portrait": {
+        "type": "image",
+        "group": "homepage",
+        "description": "Personal hero: optional portrait"
+      },
+      "grid_style": {
+        "type": "select",
+        "options": [
+          "Rows",
+          "Masonry",
+          "Uniform",
+          "Single column"
+        ],
+        "default": "Rows",
+        "group": "homepage",
+        "description": "Rows keeps order and fills each row; Masonry columns; Uniform even frames; Single column"
+      },
+      "social_github": {
+        "type": "text",
+        "description": "GitHub username. Shown as an icon next to the Ghost social accounts."
+      },
+      "social_huggingface": {
+        "type": "text",
+        "description": "Hugging Face username. Shown as an icon next to the Ghost social accounts."
+      },
+      "social_email": {
+        "type": "text",
+        "description": "Public contact email. Shown as a mail icon next to the social accounts."
+      },
+      "social_custom_url": {
+        "type": "text",
+        "description": "Full URL of one extra profile (Medium, Telegram, Scholar…). Shown with a globe icon."
+      },
+      "cta_headline": {
+        "type": "text",
+        "default": "",
+        "group": "homepage",
+        "description": "Subscribe section: headline"
+      },
+      "cta_text": {
+        "type": "text",
+        "default": "",
+        "group": "homepage",
+        "description": "Subscribe section: supporting line"
+      },
+      "show_reading_time": {
+        "type": "boolean",
+        "default": false,
+        "group": "post"
+      },
+      "show_author_meta": {
+        "type": "select",
+        "options": [
+          "Name and photo",
+          "Name only",
+          "Hidden"
+        ],
+        "default": "Hidden",
+        "group": "post",
+        "description": "Author on posts and cards"
+      },
+      "show_featured_slider": {
+        "type": "boolean",
+        "default": false,
+        "group": "homepage",
+        "description": "Show the other featured posts as a swipeable row under the hero"
+      },
+      "contact_email": {
+        "type": "text",
+        "default": "",
+        "description": "Email for print requests and the Contact page (leave empty to hide the buttons)"
+      },
+      "rail_info": {
+        "type": "text",
+        "default": "",
+        "description": "Studio details in the left rail: address, city, VAT number (header Sidebar)"
+      }
+    }
+  },
+  "keywords": [
+    "ghost-theme",
+    "ghost",
+    "photography",
+    "portfolio",
+    "gallery",
+    "photographer",
+    "dark-mode",
+    "contact-sheet"
+  ],
+  "homepage": "https://adrianoamalfi.com/phantasma/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adrianoamalfi/phantasma-ghost.git"
+  },
+  "bugs": "https://github.com/adrianoamalfi/phantasma-ghost/issues"
+}

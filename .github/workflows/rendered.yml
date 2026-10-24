@@ -1,0 +1,58 @@
+name: Rendered
+
+# Boots a real Ghost in Docker with the theme and the demo content, then runs axe-core (light and dark), the
+# layout-shift budget and the route checks against what Ghost actually paints. It downloads the demo photographs
+# from Wikimedia Commons, so it runs on demand and on release tags instead of on every push.
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  rendered:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Start Ghost with the theme
+        run: |
+          docker run -d --name ghost -p 2368:2368 \
+            -e NODE_ENV=development -e url=http://localhost:2368 \
+            -e database__client=sqlite3 \
+            -e database__connection__filename=/var/lib/ghost/content/data/ghost.db \
+            -v "$PWD":/var/lib/ghost/content/themes/phantasma:ro \
+            ghost:6
+      - uses: actions/cache@v4
+        with:
+          path: demo/.cache
+          key: demo-photos-${{ hashFiles('demo/sources.json') }}
+      - name: Create the demo site
+        run: node demo/bootstrap.mjs
+        env:
+          GHOST_URL: http://localhost:2368
+      - name: Rendered accessibility and layout shift
+        run: node scripts/check-rendered.mjs
+        env:
+          GHOST_URL: http://localhost:2368
+          GHOST_EXTRA_ROUTES: '["/series/","/prints/","/about/","/contact/","/archive/","/journal/","/star-trails-at-la-hague/"]'
+      - name: Route smoke test
+        run: node scripts/smoke-routes.mjs
+        env:
+          GHOST_URL: http://localhost:2368
+      - name: Ghost logs
+        if: always()
+        run: docker logs ghost > ghost.log 2>&1 || true
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: ghost-log
+          path: ghost.log
+          if-no-files-found: ignore
