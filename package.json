@@ -50,7 +50,7 @@
     "postcss-import": "^16.1.1",
     "prettier": "^3.8.1",
     "puppeteer-core": "^24.0.0",
-    "vitest": "^4.1.12"
+    "vitest": "^5.0.5"
   },
   "config": {
     "posts_per_page": 12,
