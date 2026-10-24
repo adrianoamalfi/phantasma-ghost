@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phantasma: a Ghost theme for photographers</title>
+<meta name="description" content="Phantasma is a free Ghost 6 theme for photographers: a light table and a contact sheet, with a fixed left rail, justified rows, numbered frames, series, a lightbox and demo content.">
+<meta property="og:title" content="Phantasma: a Ghost theme for photographers">
+<meta property="og:description" content="A light table and a contact sheet for Ghost. Free and open source.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adrianoamalfi.github.io/phantasma-ghost/">
+<meta property="og:image" content="https://adrianoamalfi.github.io/phantasma-ghost/screenshots/home-dark.webp">
+<link rel="stylesheet" href="assets/docs.css">
+<link rel="preload" href="assets/fonts/archivo-latin-wdth-normal.woff2" as="font" type="font/woff2" crossorigin>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">Phantasma</a>
+    <nav aria-label="Documentation">
+      <a href="#features">Features</a>
+      <a href="#pages">Pages</a>
+      <a href="#install">Install</a>
+      <a href="#settings">Settings</a>
+      <a href="#demo">Demo</a>
+      <a href="#photographers">Notes</a>
+      <a href="#development">Development</a>
+    </nav>
+    <button class="theme-btn" id="theme" type="button" aria-label="Switch the documentation between light and dark">Light / dark</button>
+  </div>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Ghost 6 theme · free · MIT</p>
+    <h1>The photograph is the interface.</h1>
+    <p class="lede">Phantasma is a theme for photographers: a light table and a contact sheet. A neutral grey ground, a safelight-red accent for what is selected, numbered frames, justified rows, series, a lightbox, and a fixed left rail.</p>
+    <div class="actions">
+      <a class="btn" href="https://github.com/adrianoamalfi/phantasma-ghost/releases/latest">Download the theme</a>
+      <a class="btn ghost" href="demo/">Open the static demo</a>
+      <a class="btn ghost" href="https://github.com/adrianoamalfi/phantasma-ghost">View on GitHub</a>
+    </div>
+    <figure class="shot"><img src="screenshots/home-dark.webp" alt="The Phantasma home page: the left rail, a full-height slideshow hero of a lighthouse at dusk" width="1440" height="900" decoding="async"></figure>
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <p class="eyebrow">What it does</p>
+    <h2>Made for looking at photographs.</h2>
+    <p class="sub">Every choice serves the image: a neutral ground so colours read true, no overlays on the photographs, and a quiet strip of data under each frame.</p>
+    <div class="grid">
+      <div class="card"><figure class="shot"><img src="screenshots/feed-rows.webp" alt="A feed of justified rows with numbered frames" width="1440" height="900" loading="lazy" decoding="async"></figure><h3>Justified rows and numbered frames</h3><p>Each photo keeps its proportions and the rows are filled edge to edge, in order. Under every frame: its number, the title and the series. A featured photograph has its number circled, like a grease-pencil mark on a proof sheet. Masonry, Uniform and Single column are one setting away.</p></div>
+      <div class="card"><figure class="shot"><img src="screenshots/photo.webp" alt="A single photograph page with the exposure data under the image" width="1440" height="900" loading="lazy" decoding="async"></figure><h3>A page for each photograph</h3><p>The photograph first, large and uncropped, with the exposure line in mono under it. Previous and next thumbnails inside the series, arrow-key navigation, a print request button and view transitions from the feed.</p></div>
+      <div class="card"><figure class="shot"><img src="screenshots/series-strip.webp" alt="A strip of series tiles with a cover image, a name and a count" width="1440" height="900" loading="lazy" decoding="async"></figure><h3>Series as the unit</h3><p>Tags with a cover image become series: a strip on the home page, a Series index page and full-bleed cover pages. A body of work is shown as a set, not as a folder.</p></div>
+      <div class="card"><figure class="shot"><img src="screenshots/lightbox.webp" alt="The lightbox showing a photograph at full size with its caption" width="1440" height="900" loading="lazy" decoding="async"></figure><h3>Lightbox at full resolution</h3><p>Opens at the largest size an image offers, preloads the neighbours, shows the caption, and has arrows, swipe, a counter and Esc.</p></div>
+      <div class="card"><figure class="shot"><img src="screenshots/feed-locked.webp" alt="A feed with a blurred, members-only photograph and a lock badge" width="1440" height="900" loading="lazy" decoding="async"></figure><h3>Gated photographs, handled honestly</h3><p>Members-only and paid photographs ship only a 30px stand-in in cards and on their page, with a themed, translated upgrade panel. See the notes on what a theme cannot protect.</p></div>
+      <div class="card"><figure class="shot"><img src="screenshots/home-light.webp" alt="The home page in light mode" width="1440" height="900" loading="lazy" decoding="async"></figure><h3>Dark by default, light on request</h3><p>A neutral grey ground in both modes. Readers choose System, Light or Dark with one button and the choice is remembered. Axe-core passes in both.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pages">
+  <div class="wrap">
+    <p class="eyebrow">Layouts and pages</p>
+    <h2>One rail, many pages.</h2>
+    <p class="sub">From 64rem the header is a fixed left rail: wordmark, one line about the studio, a vertical menu, a call to write, studio details, social links and controls. Below that it is a top bar. Inline, Stacked and Centered headers are still available.</p>
+    <div class="rail-row">
+      <figure class="shot"><img src="screenshots/rail.webp" alt="The left rail: name, menu, description, Get in touch button, studio details, social links" width="544" height="1280" loading="lazy" decoding="async"></figure>
+      <div class="grid two">
+        <figure class="shot"><img src="screenshots/series-page.webp" alt="A series page with a full-bleed cover and its photographs" width="1440" height="900" loading="lazy" decoding="async"><figcaption>Series page</figcaption></figure>
+        <figure class="shot"><img src="screenshots/about.webp" alt="The About page: a portrait beside the text" width="1440" height="900" loading="lazy" decoding="async"><figcaption>About template</figcaption></figure>
+        <figure class="shot"><img src="screenshots/contact.webp" alt="The Contact page: text beside a card with email and a print request button" width="1440" height="900" loading="lazy" decoding="async"><figcaption>Contact template</figcaption></figure>
+        <figure class="shot"><img src="screenshots/journal-post.webp" alt="A journal article with a wide image, list and callout" width="1440" height="900" loading="lazy" decoding="async"><figcaption>Journal article</figcaption></figure>
+        <figure class="shot"><img src="screenshots/prints.webp" alt="The Prints landing page" width="1440" height="900" loading="lazy" decoding="async"><figcaption>Landing template (Prints)</figcaption></figure>
+        <figure class="shot"><img src="screenshots/archive.webp" alt="The Archive page: topics and a ruled list of posts" width="1440" height="900" loading="lazy" decoding="async"><figcaption>Archive template</figcaption></figure>
+      </div>
+    </div>
+    <h3>Feed layouts</h3>
+    <div class="grid">
+      <figure class="shot"><img src="screenshots/feed-rows.webp" alt="Rows layout" width="1440" height="900" loading="lazy" decoding="async"><figcaption>Rows (default)</figcaption></figure>
+      <figure class="shot"><img src="screenshots/feed-masonry.webp" alt="Masonry layout" width="1440" height="900" loading="lazy" decoding="async"><figcaption>Masonry</figcaption></figure>
+      <figure class="shot"><img src="screenshots/feed-uniform.webp" alt="Uniform layout" width="1440" height="900" loading="lazy" decoding="async"><figcaption>Uniform</figcaption></figure>
+    </div>
+    <h3>On a phone</h3>
+    <div class="phones">
+      <figure class="shot"><img src="screenshots/mobile-home.webp" alt="Phone: the home page with the slideshow hero" width="780" height="1688" loading="lazy" decoding="async"></figure>
+      <figure class="shot"><img src="screenshots/mobile-menu.webp" alt="Phone: the open menu" width="780" height="1688" loading="lazy" decoding="async"></figure>
+      <figure class="shot"><img src="screenshots/mobile-photo.webp" alt="Phone: a photograph page" width="780" height="1688" loading="lazy" decoding="async"></figure>
+      <figure class="shot"><img src="screenshots/mobile-series.webp" alt="Phone: the series strip scrolls sideways" width="780" height="1688" loading="lazy" decoding="async"></figure>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <p class="eyebrow">Install</p>
+    <h2>Up and running in ten minutes.</h2>
+    <ol class="steps">
+      <li><strong>Get the theme.</strong> Download <code>phantasma.zip</code> from the <a href="https://github.com/adrianoamalfi/phantasma-ghost/releases/latest">latest release</a>, or build it with <code>npm run zip</code>.</li>
+      <li><strong>Upload it.</strong> In Ghost Admin go to <em>Settings → Design → Change theme → Upload theme</em> and activate <strong>Phantasma</strong>. It needs Ghost 6.</li>
+      <li><strong>Publish photographs as posts.</strong> Set the <em>feature image</em>, its <em>alt text</em> and, optionally, the exposure line in the image caption (for example <code>35 mm · f/2.8 · 1/250 s · ISO 400</code>). Pick the <em>Photo</em> template for a single-photograph page.</li>
+      <li><strong>Make series with tags.</strong> Give each tag a feature image and a description. Create a page with the <em>Series</em> template and link it from the navigation. The home strip shows tags that have a cover.</li>
+      <li><strong>Add the pages.</strong> <em>About</em> (portrait as the feature image), <em>Contact</em>, <em>Archive</em>, and a <em>Landing</em> page for prints.</li>
+      <li><strong>Set the Design settings</strong> below, the accent colour in <em>Brand</em>, and the studio line, email and social accounts. Optionally upload <code>routes.example.yaml</code> to keep a Journal apart from the photograph feed.</li>
+    </ol>
+    <div class="note">Ghost's own accent colour is used for the one thing that is selected: the hover outline, the active menu item and the circled number of a featured photograph. A safelight red (<code>#ff4d2e</code>) is the demo's choice; any colour works, and ink and fill are derived so text on and in the accent stays legible.</div>
+  </div>
+</section>
+
+<section id="settings">
+  <div class="wrap">
+    <p class="eyebrow">Design settings</p>
+    <h2>Every setting, in one place.</h2>
+    <p class="sub">Ghost Admin → Settings → Design. This table is generated from <code>package.json</code> by <code>npm run docs</code>, so it cannot drift.</p>
+    <!-- settings:start -->
+<h3>General</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Key</th><th>Setting</th><th>Values</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><code>show_related_posts</code></td><td>Related photographs</td><td>On / Off (default: on)</td><td>Show related posts after the article.</td></tr>
+<tr><td><code>header_style</code></td><td>Header layout</td><td>Inline / Stacked / Centered / Sidebar (default: Sidebar)</td><td>Inline, Stacked (brand above menu), Centered (menu | brand | actions) or Sidebar (fixed left rail)</td></tr>
+<tr><td><code>social_github</code></td><td>GitHub</td><td>Text</td><td>GitHub username. Shown as an icon next to the Ghost social accounts.</td></tr>
+<tr><td><code>social_huggingface</code></td><td>Hugging Face</td><td>Text</td><td>Hugging Face username. Shown as an icon next to the Ghost social accounts.</td></tr>
+<tr><td><code>social_email</code></td><td>Public email</td><td>Text</td><td>Public contact email. Shown as a mail icon next to the social accounts.</td></tr>
+<tr><td><code>social_custom_url</code></td><td>Extra profile link</td><td>Text</td><td>Full URL of one extra profile (Medium, Telegram, Scholar…). Shown with a globe icon.</td></tr>
+<tr><td><code>contact_email</code></td><td>Contact email</td><td>Text</td><td>Email for print requests and the Contact page (leave empty to hide the buttons)</td></tr>
+<tr><td><code>rail_info</code></td><td>Studio details (left rail)</td><td>Text</td><td>Studio details in the left rail: address, city, VAT number (header Sidebar)</td></tr>
+</tbody></table></div>
+<h3>Homepage</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Key</th><th>Setting</th><th>Values</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><code>post_hero_style</code></td><td>Home hero</td><td>Poster / Editorial / Split / Cover / Slideshow / Personal (default: Slideshow)</td><td>Hero: Poster, Editorial, Split, Cover or Slideshow (featured photos), Personal (the author)</td></tr>
+<tr><td><code>personal_hero_headline</code></td><td>Personal hero: headline</td><td>Text</td><td>Personal hero: headline (defaults to the site title)</td></tr>
+<tr><td><code>personal_hero_text</code></td><td>Personal hero: line</td><td>Text</td><td>Personal hero: short line under the headline (defaults to the site description)</td></tr>
+<tr><td><code>personal_hero_portrait</code></td><td>Personal hero: portrait</td><td>Image</td><td>Personal hero: optional portrait</td></tr>
+<tr><td><code>grid_style</code></td><td>Photo feed layout</td><td>Rows / Masonry / Uniform / Single column (default: Rows)</td><td>Rows keeps order and fills each row; Masonry columns; Uniform even frames; Single column</td></tr>
+<tr><td><code>cta_headline</code></td><td>Subscribe headline</td><td>Text</td><td>Subscribe section: headline</td></tr>
+<tr><td><code>cta_text</code></td><td>Subscribe line</td><td>Text</td><td>Subscribe section: supporting line</td></tr>
+<tr><td><code>show_featured_slider</code></td><td>Featured slider</td><td>On / Off (default: off)</td><td>Show the other featured posts as a swipeable row under the hero</td></tr>
+</tbody></table></div>
+<h3>Post</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>Key</th><th>Setting</th><th>Values</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><code>show_reading_time</code></td><td>Reading time</td><td>On / Off (default: off)</td><td></td></tr>
+<tr><td><code>show_author_meta</code></td><td>Author on photographs and cards</td><td>Name and photo / Name only / Hidden (default: Hidden)</td><td>Author on posts and cards</td></tr>
+</tbody></table></div>
+<!-- settings:end -->
+  </div>
+</section>
+
+<section id="demo">
+  <div class="wrap">
+    <p class="eyebrow">Demo</p>
+    <h2>A complete demo site, included.</h2>
+    <p class="sub"><a href="demo/">Open the static demo</a> to click through the theme without installing anything: 36 photographs in 6 series, a Journal with 6 articles, and the About, Contact, Prints and Archive pages. Members and paid photographs show the gated cards and the upgrade panel. The sign-up and search features need a real Ghost, so they are inert here.</p>
+    <div class="cols">
+      <div>
+        <h3>Load it into your own Ghost</h3>
+        <p>The demo is a fictional photographer, <strong>Mara Voss</strong>. A seeder in <code>demo/</code> loads everything through the Admin API:</p>
+<pre><code>GHOST_URL=https://your-site.example \
+GHOST_ADMIN_API_KEY=&lt;id&gt;:&lt;secret&gt; \
+GHOST_STAFF_EMAIL=you@example.com GHOST_STAFF_PASSWORD=... \
+node demo/seed.mjs --reset</code></pre>
+        <p>Settings, theme and routes need a staff login because Ghost does not let API keys change them. See <a href="https://github.com/adrianoamalfi/phantasma-ghost/blob/main/demo/README.md">demo/README.md</a>.</p>
+      </div>
+      <div>
+        <h3>The photographs</h3>
+        <p>All photographs are free-licensed works from <a href="https://commons.wikimedia.org/">Wikimedia Commons</a> (CC0, public domain, CC BY or CC BY-SA). Each carries its photographer's credit and the real EXIF data of the file in its caption; the sources are listed in <a href="https://github.com/adrianoamalfi/phantasma-ghost/blob/main/demo/sources.json"><code>demo/sources.json</code></a>. Mara Voss is fictional, and so are the prices on the Prints page.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="photographers">
+  <div class="wrap">
+    <p class="eyebrow">Notes for photographers</p>
+    <h2>Things worth knowing.</h2>
+    <div class="cols">
+      <div>
+        <h3>Premium photographs</h3>
+        <p>Ghost serves a post's feature image to everyone, even when the post is gated, so a theme cannot make a photograph private. Phantasma loads only a 30px stand-in (blurred) for gated photographs and shows the upgrade panel after the preview. It cannot hide the image URL from someone who looks for it, or the <code>og:image</code> Ghost adds. For photographs that must stay private, use a low-resolution or watermarked feature image and keep the original inside the gated content.</p>
+        <div class="shot" style="margin-top:1rem"><img src="screenshots/gated.webp" alt="The upgrade panel on a paid photograph" width="1440" height="900" loading="lazy" decoding="async"></div>
+      </div>
+      <div>
+        <h3>Frame data</h3>
+        <p>Write the exposure line in the feature image's <strong>caption</strong>; it is set in mono under the photograph and in the lightbox. A second line can carry the credit. Alt text is the description for screen readers: write what is in the frame, not the title.</p>
+        <h3>Accessibility</h3>
+        <p>The theme is checked with axe-core in light and dark on every route of the demo, with a layout-shift budget. Slideshows have a pause control and respect reduced motion; small links keep a 24px target; focus is always visible.</p>
+        <h3>Performance</h3>
+        <p>Images ship with their dimensions and responsive WebP sources, only the first frame is eager, fonts are self-hosted (Archivo and JetBrains Mono, about 130 KB together) and there are no third-party scripts.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="development">
+  <div class="wrap">
+    <p class="eyebrow">Development</p>
+    <h2>Checked on every push.</h2>
+    <div class="cols">
+      <div>
+        <h3>Commands</h3>
+<pre><code>npm install
+npm run dev        # watch CSS and JS
+npm run check      # build, gscan, i18n, a11y, tests, lint, format
+npm run zip        # dist/phantasma.zip
+npm run docs       # regenerate the settings tables
+npm run screenshots   # needs a Ghost with the demo content
+npm run demo:static   # rebuild docs/demo from it
+GHOST_URL=... npm run check:rendered   # axe-core and layout shift</code></pre>
+      </div>
+      <div>
+        <h3>CI and releases</h3>
+        <p><strong>CI</strong> runs <code>npm run check</code>, confirms the generated documentation is current, builds the theme ZIP and validates it with gscan. <strong>Release</strong> publishes <code>phantasma.zip</code> when a <code>vX.Y.Z</code> tag matches <code>package.json</code> and the changelog. <strong>Rendered</strong> boots Ghost in Docker with the demo and runs axe-core, layout shift and route checks, on demand and on tags. <strong>Pages</strong> publishes this documentation and builds the static demo from that same Ghost, so the photographs never live in the repository.</p>
+        <p>Phantasma is generated from <a href="https://github.com/adrianoamalfi/ghost-theme-starter">ghost-theme-starter</a>. The look lives in <code>assets/css/skin/</code>; everything else updates with <code>npm run starter:sync</code>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>Designed and built by <a href="https://adrianoamalfi.com">Adriano Amalfi</a>. Released under the MIT licence. Fonts: Archivo and JetBrains Mono (SIL OFL 1.1).</span>
+    <span><a href="https://github.com/adrianoamalfi/phantasma-ghost">Source</a> · <a href="https://github.com/adrianoamalfi/phantasma-ghost/blob/main/CHANGELOG.md">Changelog</a> · <a href="https://adrianoamalfi.com/phantasma/">Theme page</a></span>
+  </div>
+</footer>
+<script src="assets/docs.js" defer></script>
+</body>
+</html>
