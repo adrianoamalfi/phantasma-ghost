@@ -40,7 +40,7 @@
     "axe-core": "^4.10.0",
     "concurrently": "^9.2.5",
     "cssnano": "^7.0.6",
-    "esbuild": "^0.25.5",
+    "esbuild": "^0.28.2",
     "eslint": "^10.7.0",
     "globals": "^17.7.0",
     "gscan": "^6.6.1",
