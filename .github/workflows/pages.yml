@@ -62,7 +62,7 @@ jobs:
           if [ -f docs/demo/index.html ]; then echo "Static demo built."; else echo "::warning::The static demo was not built; publishing the documentation only."; docker logs ghost > ghost.log 2>&1 || true; fi
 
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: docs
       - id: deployment
