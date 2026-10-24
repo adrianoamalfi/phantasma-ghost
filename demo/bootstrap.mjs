@@ -70,7 +70,11 @@ const integration = (
 // for an admin key Ghost returns the whole "id:secret" in `secret`
 const adminKey = integration.api_keys.find((k) => k.type === 'admin');
 const key = adminKey.secret.includes(':') ? adminKey.secret : `${adminKey.id}:${adminKey.secret}`;
-if (process.env.GITHUB_ENV) appendFileSync(process.env.GITHUB_ENV, `GHOST_ADMIN_API_KEY=${key}\nGHOST_STAFF_EMAIL=${email}\nGHOST_STAFF_PASSWORD=${password}\n`);
+if (process.env.GITHUB_ENV) {
+    // keep the throw-away credentials out of the public workflow log
+    for (const v of [key, password]) console.log(`::add-mask::${v}`);
+     appendFileSync(process.env.GITHUB_ENV, `GHOST_ADMIN_API_KEY=${key}\nGHOST_STAFF_EMAIL=${email}\nGHOST_STAFF_PASSWORD=${password}\n`);
+}
 
 const env = { ...process.env, GHOST_URL: BASE, GHOST_ADMIN_API_KEY: key, GHOST_STAFF_EMAIL: email, GHOST_STAFF_PASSWORD: password };
 const r = spawnSync('node', [join(here, 'seed.mjs'), '--reset', ...process.argv.slice(2)], { stdio: 'inherit', env });

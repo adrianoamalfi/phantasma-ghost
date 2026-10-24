@@ -32,6 +32,7 @@ jobs:
           docker run -d --name ghost -p 2368:2368 \
             -e NODE_ENV=development -e url=http://localhost:2368 \
             -e database__client=sqlite3 \
+            -e security__staffDeviceVerification=false \
             -e database__connection__filename=/var/lib/ghost/content/data/ghost.db \
             -v "$RUNNER_TEMP/theme/phantasma":/var/lib/ghost/content/themes/phantasma \
             ghost:6
