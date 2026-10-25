@@ -36,10 +36,12 @@ jobs:
             -e database__connection__filename=/var/lib/ghost/content/data/ghost.db \
             -v "$RUNNER_TEMP/theme/phantasma":/var/lib/ghost/content/themes/phantasma \
             ghost:6
-      - uses: actions/cache@v4
+      - name: Restore the demo photographs
+        uses: actions/cache/restore@v4
         with:
           path: demo/.cache
-          key: demo-photos-${{ hashFiles('demo/*/sources.json') }}
+          key: demo-photos-${{ hashFiles('demo/*/sources.json') }}-${{ github.run_id }}
+          restore-keys: demo-photos-${{ hashFiles('demo/*/sources.json') }}-
       - name: Create the demo site
         run: node demo/bootstrap.mjs
         env:
@@ -53,6 +55,12 @@ jobs:
         run: node scripts/smoke-routes.mjs
         env:
           GHOST_URL: http://localhost:2368
+      - name: Save the demo photographs
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: demo/.cache
+          key: demo-photos-${{ hashFiles('demo/*/sources.json') }}-${{ github.run_id }}
       - name: Ghost logs
         if: always()
         run: |

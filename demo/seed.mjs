@@ -82,19 +82,28 @@ const byKey = Object.fromEntries(PHOTOS.map((p) => [p.key, p]));
 mkdirSync(CACHE, { recursive: true });
 const EXT = (name) => name.split('?')[0].split('.').pop().toLowerCase().replace('jpeg', 'jpg');
 const MIME = { jpg: 'image/jpeg', webp: 'image/webp', png: 'image/png', avif: 'image/avif' };
+// Wikimedia asks for an identifying User-Agent and serves thumbnails at standard widths; it answers 429 when asked too
+// fast, so the downloads are spaced out and retried, honouring Retry-After.
+const AGENT = 'phantasma-theme-demo/1.0 (https://github.com/adrianoamalfi/phantasma-ghost; demo content seeder)';
+const downloadUrl = (src) =>
+    (src.url || src.thumb)
+        .replace('thumb.wikimedia.org', 'upload.wikimedia.org')
+        .replace(/\?.*$/, '')
+        .replace(/\/\d+px-/, '/1920px-');
 async function download(key) {
     const src = SOURCES[key];
     if (src.file) return join(here, DEMO, src.file); // committed next to the demo (for example the portrait)
     const file = join(CACHE, `${key}.${EXT(src.url || src.thumb)}`);
     if (existsSync(file)) return file;
-    for (let a = 0; a < 6; a++) {
-        const res = await fetch(src.url || src.thumb, { headers: { 'User-Agent': 'phantasma-theme-demo/1.0 (demo content seeder)' } });
+    for (let a = 0; a < 10; a++) {
+        const res = await fetch(downloadUrl(src), { headers: { 'User-Agent': AGENT } });
         if (res.ok && (res.headers.get('content-type') || '').startsWith('image/')) {
             writeFileSync(file, Buffer.from(await res.arrayBuffer()));
-            await sleep(900);
+            await sleep(2000);
             return file;
         }
-        await sleep(4000 * (a + 1));
+        const wait = Number(res.headers.get('retry-after')) || 5 * (a + 1);
+        await sleep(Math.min(wait, 60) * 1000);
     }
     throw new Error(`could not download ${key}`);
 }
