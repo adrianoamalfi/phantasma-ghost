@@ -1,6 +1,6 @@
 name: Pages
 
-# Publishes the documentation (docs/) and a static, browsable copy of the demo site (docs/demo/). The demo is built here
+# Publishes the documentation (docs/) and static, browsable copies of the two demo sites (docs/demo/ and docs/demo-street/). The demo is built here
 # from a real Ghost running the theme with the demo content, so the photographs never live in the repository.
 # Needs Settings → Pages → Source: GitHub Actions. If the demo cannot be built, the documentation is still published.
 on:
@@ -52,14 +52,13 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: demo/.cache
-          key: demo-photos-${{ hashFiles('demo/sources.json') }}
+          key: demo-photos-${{ hashFiles('demo/*/sources.json') }}
       - name: Create the demo site and its static copy
         id: demo
         if: steps.ghost.outcome == 'success'
         continue-on-error: true
         run: |
-          node demo/bootstrap.mjs
-          node scripts/static-demo.mjs --out docs/demo --public "/${GITHUB_REPOSITORY#*/}/demo"
+          node demo/bootstrap.mjs --demos mara,street --static
         env:
           GHOST_URL: http://localhost:2368
       - name: Say what happened to the demo

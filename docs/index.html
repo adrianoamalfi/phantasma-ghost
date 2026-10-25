@@ -154,22 +154,38 @@
 
 <section id="demo">
   <div class="wrap">
-    <p class="eyebrow">Demo</p>
-    <h2>A complete demo site, included.</h2>
-    <p class="sub"><a href="demo/">Open the static demo</a> to click through the theme without installing anything: 36 photographs in 6 series, a Journal with 6 articles, and the About, Contact, Prints and Archive pages. Members and paid photographs show the gated cards and the upgrade panel. The sign-up and search features need a real Ghost, so they are inert here.</p>
-    <div class="cols">
+    <p class="eyebrow">Demos</p>
+    <h2>Two demo sites, included.</h2>
+    <p class="sub">Click through the theme without installing anything. Sign-up and search need a real Ghost, so they are inert here. Both demos are built from the <code>demo/</code> folder and can be loaded into your own Ghost.</p>
+    <div class="grid two">
+      <div class="card">
+        <a href="demo/"><figure class="shot"><img src="screenshots/home-dark.webp" alt="Demo 1: Mara Voss, with the left rail and a slideshow hero" width="1440" height="900" loading="lazy" decoding="async"></figure></a>
+        <h3>Mara Voss: landscapes and light</h3>
+        <p>Fixed left rail, slideshow hero, justified rows, 36 photographs in 6 series, a Journal, gated photographs, Prints. The photographs are free-licensed works from <a href="https://commons.wikimedia.org/">Wikimedia Commons</a>, credited under every image with their real EXIF data. Mara Voss is fictional. <a href="demo/">Open the demo</a>.</p>
+      </div>
+      <div class="card">
+        <a href="demo-street/"><figure class="shot"><img src="screenshots/street-home.webp" alt="Demo 2: Adriano Amalfi, with a top header, a personal hero with a portrait and a masonry feed" width="1440" height="900" loading="lazy" decoding="async"></figure></a>
+        <h3>Adriano Amalfi: urban photography</h3>
+        <p>A different look from the same theme: a top header, a personal hero with the photographer's portrait, a masonry feed, a yellow accent and three series of city photographs. The photographs are the author's own, &copy; Adriano Amalfi, all rights reserved, shown for this demo only. <a href="demo-street/">Open the demo</a>.</p>
+      </div>
+    </div>
+    <div class="grid" style="margin-top:2rem">
+      <figure class="shot"><img src="screenshots/street-feed.webp" alt="The masonry feed of the second demo" width="1440" height="900" loading="lazy" decoding="async"><figcaption>Masonry feed, yellow accent</figcaption></figure>
+      <figure class="shot"><img src="screenshots/street-photo.webp" alt="A photograph page in the second demo, under the top header" width="1440" height="900" loading="lazy" decoding="async"><figcaption>Photograph page with the top header</figcaption></figure>
+      <figure class="shot"><img src="screenshots/street-about.webp" alt="The About page of the second demo with the portrait" width="1440" height="900" loading="lazy" decoding="async"><figcaption>About page with the portrait</figcaption></figure>
+    </div>
+    <div class="cols" style="margin-top:3rem">
       <div>
-        <h3>Load it into your own Ghost</h3>
-        <p>The demo is a fictional photographer, <strong>Mara Voss</strong>. A seeder in <code>demo/</code> loads everything through the Admin API:</p>
-<pre><code>GHOST_URL=https://your-site.example \
-GHOST_ADMIN_API_KEY=&lt;id&gt;:&lt;secret&gt; \
-GHOST_STAFF_EMAIL=you@example.com GHOST_STAFF_PASSWORD=... \
-node demo/seed.mjs --reset</code></pre>
-        <p>Settings, theme and routes need a staff login because Ghost does not let API keys change them. See <a href="https://github.com/adrianoamalfi/phantasma-ghost/blob/main/demo/README.md">demo/README.md</a>.</p>
+        <h3>Load a demo into your own Ghost</h3>
+<pre><code>GHOST_URL=https://your-site.example \\
+GHOST_ADMIN_API_KEY=&lt;id&gt;:&lt;secret&gt; \\
+GHOST_STAFF_EMAIL=you@example.com GHOST_STAFF_PASSWORD=... \\
+node demo/seed.mjs --demo street --reset</code></pre>
+        <p>Use <code>--demo mara</code> or <code>--demo street</code>. Settings, theme and routes need a staff login because Ghost does not let API keys change them. See <a href="https://github.com/adrianoamalfi/phantasma-ghost/blob/main/demo/README.md">demo/README.md</a>.</p>
       </div>
       <div>
-        <h3>The photographs</h3>
-        <p>All photographs are free-licensed works from <a href="https://commons.wikimedia.org/">Wikimedia Commons</a> (CC0, public domain, CC BY or CC BY-SA). Each carries its photographer's credit and the real EXIF data of the file in its caption; the sources are listed in <a href="https://github.com/adrianoamalfi/phantasma-ghost/blob/main/demo/sources.json"><code>demo/sources.json</code></a>. Mara Voss is fictional, and so are the prices on the Prints page.</p>
+        <h3>About the photographs</h3>
+        <p>The photographs are not in the repository: they are downloaded when a demo is built (Wikimedia Commons for the first, the author's own site for the second), and the sources are listed in <code>demo/*/sources.json</code>. Prices on the Prints page and the email addresses are placeholders.</p>
       </div>
     </div>
   </div>

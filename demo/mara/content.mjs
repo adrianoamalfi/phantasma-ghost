@@ -15,6 +15,7 @@ export const SITE = {
 
 export const AUTHOR = {
     name: 'Mara Voss',
+    slug: 'mara',
     bio: 'Landscape and documentary photographer based in Bristol. Quiet places, long light.',
     location: 'Bristol, United Kingdom',
 };

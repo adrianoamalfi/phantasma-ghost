@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 /*
  * Prepares a brand-new, empty Ghost site (a local dev install or a CI container) for the demo: waits for it to answer,
- * creates the owner account and a custom integration, then runs the seeder with the new keys.
+ * creates the owner account and a custom integration, then runs the seeder with the new keys, once per demo.
  *
- *   GHOST_URL=http://localhost:2368 node demo/bootstrap.mjs
+ *   GHOST_URL=http://localhost:2368 node demo/bootstrap.mjs [--demos mara,street] [--static] [--base-path /phantasma-ghost]
+ *
+ * With --static each demo is also crawled into a static copy under docs/ (mara in docs/demo, the others in
+ * docs/demo-<name>) for GitHub Pages; the path prefix comes from --base-path or from GITHUB_REPOSITORY.
  *
  * The owner password is random and printed nowhere; the site is meant to be thrown away. Never run this against a site
  * you care about: it refuses to continue if the site is already set up.
@@ -77,5 +80,18 @@ if (process.env.GITHUB_ENV) {
 }
 
 const env = { ...process.env, GHOST_URL: BASE, GHOST_ADMIN_API_KEY: key, GHOST_STAFF_EMAIL: email, GHOST_STAFF_PASSWORD: password };
-const r = spawnSync('node', [join(here, 'seed.mjs'), '--reset', ...process.argv.slice(2)], { stdio: 'inherit', env });
-process.exit(r.status ?? 1);
+const arg = (name, fallback) => (process.argv.includes(`--${name}`) ? process.argv[process.argv.indexOf(`--${name}`) + 1] : fallback);
+const demos = arg('demos', 'mara').split(',');
+const basePath = arg('base-path', process.env.GITHUB_REPOSITORY ? `/${process.env.GITHUB_REPOSITORY.split('/')[1]}` : '/phantasma-ghost');
+const docs = join(here, '..', 'docs');
+const run = (script, args) => {
+    const r = spawnSync('node', [join(here, script), ...args], { stdio: 'inherit', env });
+    if (r.status !== 0) process.exit(r.status ?? 1);
+};
+for (const name of demos) {
+    run('seed.mjs', ['--demo', name, '--reset']);
+    if (process.argv.includes('--static')) {
+        const dir = name === 'mara' ? 'demo' : `demo-${name}`;
+        run(join('..', 'scripts', 'static-demo.mjs'), ['--out', join(docs, dir), '--public', `${basePath}/${dir}`]);
+    }
+}

@@ -4,4 +4,4 @@ dist
 assets/built/*.map
 
 # Built by the Pages workflow (it contains the demo photographs); never committed
-docs/demo/
+docs/demo*/

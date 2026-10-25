@@ -1,0 +1,72 @@
+{
+ "PIS": {
+  "url": "https://adrianoamalfi.com/content/images/size/w1920/2023/06/20230602_112226223_iOS.webp",
+  "w": 1267,
+  "h": 1267
+ },
+ "CAS": {
+  "url": "https://adrianoamalfi.com/content/images/size/w1920/castel-santangelo-roma/castel-santangelo-roma-1.webp",
+  "w": 1267,
+  "h": 950
+ },
+ "MAX": {
+  "url": "https://adrianoamalfi.com/content/images/size/w1920/maxxi-museo-nazionale-delle-arti-del-xxi-secolo/maxxi-museo-nazionale-delle-arti-del-xxi-secolo-1.webp",
+  "w": 1920,
+  "h": 1440
+ },
+ "TER": {
+  "url": "https://adrianoamalfi.com/content/images/size/w1920/stazione-termini/stazione-termini-1.webp",
+  "w": 1267,
+  "h": 950
+ },
+ "GAE": {
+  "url": "https://adrianoamalfi.com/content/images/size/w1920/piazza-gae-aulenti/piazza-gae-aulenti-1.webp",
+  "w": 950,
+  "h": 1187
+ },
+ "PON": {
+  "url": "https://adrianoamalfi.com/content/images/size/w1920/ponte-santangelo/ponte-santangelo-1.webp",
+  "w": 1267,
+  "h": 950
+ },
+ "AQU": {
+  "url": "https://adrianoamalfi.com/content/images/size/w1920/laquila/laquila-1.webp",
+  "w": 1266,
+  "h": 949
+ },
+ "AMS": {
+  "url": "https://adrianoamalfi.com/content/images/size/w1920/amsterdam-centraal/amsterdam-centraal-1.webp",
+  "w": 1920,
+  "h": 1440
+ },
+ "ORE": {
+  "url": "https://adrianoamalfi.com/content/images/size/w1920/ponte-di-oresund/ponte-di-oresund-1.webp",
+  "w": 1920,
+  "h": 1440
+ },
+ "NAZ": {
+  "url": "https://adrianoamalfi.com/content/images/size/w1920/via-nazionale/via-nazionale-1.webp",
+  "w": 1920,
+  "h": 1920
+ },
+ "CPH": {
+  "url": "https://adrianoamalfi.com/content/images/size/w1920/aeroporto-di-copenaghen/aeroporto-di-copenaghen-1.webp",
+  "w": 1920,
+  "h": 1920
+ },
+ "TWR": {
+  "url": "https://adrianoamalfi.com/content/images/size/w1920/tower-bridge/tower-bridge-1.webp",
+  "w": 1920,
+  "h": 1281
+ },
+ "BRA": {
+  "url": "https://adrianoamalfi.com/content/images/size/w1920/brandenburger-tor/brandenburger-tor-1.webp",
+  "w": 1920,
+  "h": 1281
+ },
+ "AVATAR": {
+  "file": "avatar.jpg",
+  "w": 666,
+  "h": 1000
+ }
+}
