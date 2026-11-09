@@ -43,7 +43,7 @@
     "esbuild": "^0.28.2",
     "eslint": "^10.7.0",
     "globals": "^17.7.0",
-    "gscan": "^6.6.1",
+    "gscan": "^6.7.0",
     "handlebars": "^4.7.10",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
