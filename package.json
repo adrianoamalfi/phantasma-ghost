@@ -38,7 +38,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "axe-core": "^4.10.0",
-    "concurrently": "^9.2.5",
+    "concurrently": "^10.0.6",
     "cssnano": "^7.0.6",
     "esbuild": "^0.28.2",
     "eslint": "^10.7.0",
